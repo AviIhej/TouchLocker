@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		455006701990192500FB22BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4550066F1990192500FB22BB /* AppDelegate.swift */; };
+		455006731990192500FB22BB /* Touch___Lock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 455006711990192500FB22BB /* Touch___Lock.xcdatamodeld */; };
+		455006751990192500FB22BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455006741990192500FB22BB /* ViewController.swift */; };
+		455006781990192500FB22BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455006761990192500FB22BB /* Main.storyboard */; };
+		4550067A1990192500FB22BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455006791990192500FB22BB /* Images.xcassets */; };
+		455006861990192500FB22BB /* Touch___LockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455006851990192500FB22BB /* Touch___LockTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		455006801990192500FB22BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 455006621990192500FB22BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 455006691990192500FB22BB;
+			remoteInfo = "Touch & Lock";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4550066A1990192500FB22BB /* Touch & Lock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Touch & Lock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4550066E1990192500FB22BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4550066F1990192500FB22BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		455006721990192500FB22BB /* Touch___Lock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Touch___Lock.xcdatamodel"; sourceTree = "<group>"; };
+		455006741990192500FB22BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		455006771990192500FB22BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		455006791990192500FB22BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4550067F1990192500FB22BB /* Touch & LockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Touch & LockTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		455006841990192500FB22BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		455006851990192500FB22BB /* Touch___LockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Touch___LockTests.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		455006671990192500FB22BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4550067C1990192500FB22BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		455006611990192500FB22BB = {
+			isa = PBXGroup;
+			children = (
+				4550066C1990192500FB22BB /* Touch & Lock */,
+				455006821990192500FB22BB /* Touch & LockTests */,
+				4550066B1990192500FB22BB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4550066B1990192500FB22BB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4550066A1990192500FB22BB /* Touch & Lock.app */,
+				4550067F1990192500FB22BB /* Touch & LockTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4550066C1990192500FB22BB /* Touch & Lock */ = {
+			isa = PBXGroup;
+			children = (
+				4550066F1990192500FB22BB /* AppDelegate.swift */,
+				455006741990192500FB22BB /* ViewController.swift */,
+				455006761990192500FB22BB /* Main.storyboard */,
+				455006791990192500FB22BB /* Images.xcassets */,
+				455006711990192500FB22BB /* Touch___Lock.xcdatamodeld */,
+				4550066D1990192500FB22BB /* Supporting Files */,
+			);
+			path = "Touch & Lock";
+			sourceTree = "<group>";
+		};
+		4550066D1990192500FB22BB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4550066E1990192500FB22BB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		455006821990192500FB22BB /* Touch & LockTests */ = {
+			isa = PBXGroup;
+			children = (
+				455006851990192500FB22BB /* Touch___LockTests.swift */,
+				455006831990192500FB22BB /* Supporting Files */,
+			);
+			path = "Touch & LockTests";
+			sourceTree = "<group>";
+		};
+		455006831990192500FB22BB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				455006841990192500FB22BB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		455006691990192500FB22BB /* Touch & Lock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 455006891990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & Lock" */;
+			buildPhases = (
+				455006661990192500FB22BB /* Sources */,
+				455006671990192500FB22BB /* Frameworks */,
+				455006681990192500FB22BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Touch & Lock";
+			productName = "Touch & Lock";
+			productReference = 4550066A1990192500FB22BB /* Touch & Lock.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4550067E1990192500FB22BB /* Touch & LockTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4550068C1990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & LockTests" */;
+			buildPhases = (
+				4550067B1990192500FB22BB /* Sources */,
+				4550067C1990192500FB22BB /* Frameworks */,
+				4550067D1990192500FB22BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				455006811990192500FB22BB /* PBXTargetDependency */,
+			);
+			name = "Touch & LockTests";
+			productName = "Touch & LockTests";
+			productReference = 4550067F1990192500FB22BB /* Touch & LockTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		455006621990192500FB22BB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = Ruben;
+				TargetAttributes = {
+					455006691990192500FB22BB = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					4550067E1990192500FB22BB = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 455006691990192500FB22BB;
+					};
+				};
+			};
+			buildConfigurationList = 455006651990192500FB22BB /* Build configuration list for PBXProject "Touch & Lock" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 455006611990192500FB22BB;
+			productRefGroup = 4550066B1990192500FB22BB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				455006691990192500FB22BB /* Touch & Lock */,
+				4550067E1990192500FB22BB /* Touch & LockTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		455006681990192500FB22BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				455006781990192500FB22BB /* Main.storyboard in Resources */,
+				4550067A1990192500FB22BB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4550067D1990192500FB22BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		455006661990192500FB22BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				455006751990192500FB22BB /* ViewController.swift in Sources */,
+				455006731990192500FB22BB /* Touch___Lock.xcdatamodeld in Sources */,
+				455006701990192500FB22BB /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4550067B1990192500FB22BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				455006861990192500FB22BB /* Touch___LockTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		455006811990192500FB22BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 455006691990192500FB22BB /* Touch & Lock */;
+			targetProxy = 455006801990192500FB22BB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		455006761990192500FB22BB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				455006771990192500FB22BB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		455006871990192500FB22BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		455006881990192500FB22BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4550068A1990192500FB22BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "Touch & Lock/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4550068B1990192500FB22BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "Touch & Lock/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4550068D1990192500FB22BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Touch & LockTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Touch & Lock.app/Touch & Lock";
+			};
+			name = Debug;
+		};
+		4550068E1990192500FB22BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Touch & LockTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Touch & Lock.app/Touch & Lock";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		455006651990192500FB22BB /* Build configuration list for PBXProject "Touch & Lock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				455006871990192500FB22BB /* Debug */,
+				455006881990192500FB22BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		455006891990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & Lock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4550068A1990192500FB22BB /* Debug */,
+				4550068B1990192500FB22BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4550068C1990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & LockTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4550068D1990192500FB22BB /* Debug */,
+				4550068E1990192500FB22BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		455006711990192500FB22BB /* Touch___Lock.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				455006721990192500FB22BB /* Touch___Lock.xcdatamodel */,
+			);
+			currentVersion = 455006721990192500FB22BB /* Touch___Lock.xcdatamodel */;
+			path = "Touch___Lock.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 455006621990192500FB22BB /* Project object */;
+}
