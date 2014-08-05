@@ -9,8 +9,9 @@
 import UIKit
 
 class ImageViewController : UIViewController, UIScrollViewDelegate {
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var mainImageView: UIImageView!
+    var mainImageURL : NSURL?
     var mainImage : UIImage?
     
     override func viewDidLoad() {
@@ -19,10 +20,9 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
     }
     
     override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
         if let image = mainImage {
-            self.mainImageView.frame = self.scrollView.bounds
+            var ratio = CGRectGetWidth(self.scrollView.bounds) / image.size.width
+            self.mainImageView.bounds = CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), image.size.height * ratio)
             self.mainImageView.center = CGPointMake(CGRectGetMidX(self.scrollView.bounds), CGRectGetMidY(self.scrollView.bounds))
             self.mainImageView.image = image
         }
@@ -30,7 +30,9 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         self.scrollView.clipsToBounds = true
         self.scrollView.contentSize = self.mainImageView.bounds.size
         self.scrollView.zoomScale = 1.0
-        self.scrollView.maximumZoomScale = 5.0
+        self.scrollView.maximumZoomScale = 10.0
+        
+        super.viewDidAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,12 +40,17 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func setMainImage(path : String) {
-        self.mainImage = UIImage(contentsOfFile: path)
+    
+    @IBAction func shareExternal(sender: AnyObject) {
+        var items = [AnyObject]()
+        items.append(mainImageURL!)
+        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView!) {
-
+    func setMainImage(path : String) {
+        self.mainImageURL = NSURL(fileURLWithPath: path)
+        self.mainImage    = UIImage(contentsOfFile: path)
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView!) -> UIView! {

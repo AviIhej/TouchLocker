@@ -14,10 +14,11 @@ import LocalAuthentication
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
-
+    var blockade : UIView?
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
+        blur()
         authenticate()
         return true
     }
@@ -25,48 +26,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(application: UIApplication!) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        
     }
 
     func applicationDidEnterBackground(application: UIApplication!) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        blur()
     }
 
     func applicationWillEnterForeground(application: UIApplication!) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        authenticate();
+        authenticate()
+    }
+
+    func blur() {
+        if let window = self.window {
+            if self.blockade == nil {
+                var effect   = UIBlurEffect(style: UIBlurEffectStyle.Light)
+                self.blockade = UIVisualEffectView(effect: effect)
+                self.blockade!.frame = window.frame
+            }
+
+            if !self.blockade!.isDescendantOfView(window) {
+                window.makeKeyAndVisible()
+                window.addSubview(blockade!)
+                window.bringSubviewToFront(blockade!)
+            }
+        }
     }
 
     func authenticate() {
-//        if let window = self.window {
-//            window.makeKeyAndVisible()
-//            var blockade = UIView(frame: window.frame)
-//            blockade.backgroundColor = UIColor.blackColor()
-//            window.addSubview(blockade)
-//            window.bringSubviewToFront(blockade)
-//            var context = LAContext()
-//            if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil) {
-//                context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Place your finger on the home button to unlock.", reply: { (success, error) in
-//                    NSOperationQueue.mainQueue().addOperationWithBlock({
-//                        if success {
-//                            blockade.removeFromSuperview()
-//                        } else {
-//                            var alert = UIAlertView(title: "Biometrics Error",
-//                                message: "There was an error reading your fingerprint. \(error.code)",
-//                                delegate: self,
-//                                cancelButtonTitle: "OK")
-//                            alert.show()
-//                        }
-//                    })
-//                })
-//            } else {
-//                var alert = UIAlertView(title: "Biometrics Error",
-//                    message: "It seems you have not set up a fingerprint yet. Please go to Settings and do so before opening the application.",
-//                    delegate: self,
-//                    cancelButtonTitle: "OK")
-//                alert.show()
-//            }
-//        }
+        var context = LAContext()
+        if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil) {
+            context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Place your finger on the home button to unlock.", reply: { (success, error) in
+                NSOperationQueue.mainQueue().addOperationWithBlock({
+                    if success {
+                        self.blockade!.removeFromSuperview()
+                    } else {
+                        var alert = UIAlertView(title: "Biometrics Error",
+                            message: "There was an error reading your fingerprint. \(error.code)",
+                            delegate: self,
+                            cancelButtonTitle: "OK")
+                        alert.show()
+                    }
+                })
+            })
+        } else {
+            var alert = UIAlertView(title: "Biometrics Error",
+                message: "It seems you have not set up a fingerprint yet. Please go to Settings and do so before opening the application.",
+                delegate: self,
+                cancelButtonTitle: "OK")
+            alert.show()
+        }
     }
 
     func applicationDidBecomeActive(application: UIApplication!) {
