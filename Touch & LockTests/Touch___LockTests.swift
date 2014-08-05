@@ -9,7 +9,7 @@
 import UIKit
 import XCTest
 
-class Touch___LockTests: XCTestCase {
+class TouchLockerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

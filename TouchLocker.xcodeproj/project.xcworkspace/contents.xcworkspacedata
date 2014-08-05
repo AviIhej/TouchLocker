@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Touch &amp; Lock.xcodeproj">
+      location = "self:TouchLocker.xcodeproj">
    </FileRef>
 </Workspace>

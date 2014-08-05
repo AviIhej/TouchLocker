@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "455006691990192500FB22BB"
-               BuildableName = "Touch &amp; Lock.app"
-               BlueprintName = "Touch &amp; Lock"
-               ReferencedContainer = "container:Touch &amp; Lock.xcodeproj">
+               BuildableName = "TouchLocker.app"
+               BlueprintName = "TouchLocker"
+               ReferencedContainer = "container:TouchLocker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4550067E1990192500FB22BB"
-               BuildableName = "Touch &amp; LockTests.xctest"
-               BlueprintName = "Touch &amp; LockTests"
-               ReferencedContainer = "container:Touch &amp; Lock.xcodeproj">
+               BuildableName = "TouchLockerTests.xctest"
+               BlueprintName = "TouchLockerTests"
+               ReferencedContainer = "container:TouchLocker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4550067E1990192500FB22BB"
-               BuildableName = "Touch &amp; LockTests.xctest"
-               BlueprintName = "Touch &amp; LockTests"
-               ReferencedContainer = "container:Touch &amp; Lock.xcodeproj">
+               BuildableName = "TouchLockerTests.xctest"
+               BlueprintName = "TouchLockerTests"
+               ReferencedContainer = "container:TouchLocker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "455006691990192500FB22BB"
-            BuildableName = "Touch &amp; Lock.app"
-            BlueprintName = "Touch &amp; Lock"
-            ReferencedContainer = "container:Touch &amp; Lock.xcodeproj">
+            BuildableName = "TouchLocker.app"
+            BlueprintName = "TouchLocker"
+            ReferencedContainer = "container:TouchLocker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "455006691990192500FB22BB"
-            BuildableName = "Touch &amp; Lock.app"
-            BlueprintName = "Touch &amp; Lock"
-            ReferencedContainer = "container:Touch &amp; Lock.xcodeproj">
+            BuildableName = "TouchLocker.app"
+            BlueprintName = "TouchLocker"
+            ReferencedContainer = "container:TouchLocker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "455006691990192500FB22BB"
-            BuildableName = "Touch &amp; Lock.app"
-            BlueprintName = "Touch &amp; Lock"
-            ReferencedContainer = "container:Touch &amp; Lock.xcodeproj">
+            BuildableName = "TouchLocker.app"
+            BlueprintName = "TouchLocker"
+            ReferencedContainer = "container:TouchLocker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

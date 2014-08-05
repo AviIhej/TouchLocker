@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Touch & Lock
+//  TouchLocker
 //
 //  Created by Ruben on 8/4/14.
 //  Copyright (c) 2014 Ruben. All rights reserved.
@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import LocalAuthentication
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
+        authenticate()
         return true
     }
 
@@ -32,6 +34,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication!) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        authenticate();
+    }
+
+    func authenticate() {
+//        if let window = self.window {
+//            window.makeKeyAndVisible()
+//            var blockade = UIView(frame: window.frame)
+//            blockade.backgroundColor = UIColor.blackColor()
+//            window.addSubview(blockade)
+//            window.bringSubviewToFront(blockade)
+//            var context = LAContext()
+//            if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil) {
+//                context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Place your finger on the home button to unlock.", reply: { (success, error) in
+//                    NSOperationQueue.mainQueue().addOperationWithBlock({
+//                        if success {
+//                            blockade.removeFromSuperview()
+//                        } else {
+//                            var alert = UIAlertView(title: "Biometrics Error",
+//                                message: "There was an error reading your fingerprint. \(error.code)",
+//                                delegate: self,
+//                                cancelButtonTitle: "OK")
+//                            alert.show()
+//                        }
+//                    })
+//                })
+//            } else {
+//                var alert = UIAlertView(title: "Biometrics Error",
+//                    message: "It seems you have not set up a fingerprint yet. Please go to Settings and do so before opening the application.",
+//                    delegate: self,
+//                    cancelButtonTitle: "OK")
+//                alert.show()
+//            }
+//        }
     }
 
     func applicationDidBecomeActive(application: UIApplication!) {

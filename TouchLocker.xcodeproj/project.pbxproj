@@ -13,6 +13,7 @@
 		455006781990192500FB22BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455006761990192500FB22BB /* Main.storyboard */; };
 		4550067A1990192500FB22BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455006791990192500FB22BB /* Images.xcassets */; };
 		455006861990192500FB22BB /* Touch___LockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455006851990192500FB22BB /* Touch___LockTests.swift */; };
+		4572A1E61990833100713281 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572A1E51990833100713281 /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,19 +24,27 @@
 			remoteGlobalIDString = 455006691990192500FB22BB;
 			remoteInfo = "Touch & Lock";
 		};
+		4572A1E7199088F300713281 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 455006621990192500FB22BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 455006691990192500FB22BB;
+			remoteInfo = TouchLocker;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4550066A1990192500FB22BB /* Touch & Lock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Touch & Lock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4550066A1990192500FB22BB /* TouchLocker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchLocker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4550066E1990192500FB22BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4550066F1990192500FB22BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		455006721990192500FB22BB /* Touch___Lock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Touch___Lock.xcdatamodel"; sourceTree = "<group>"; };
 		455006741990192500FB22BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		455006771990192500FB22BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		455006791990192500FB22BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4550067F1990192500FB22BB /* Touch & LockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Touch & LockTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4550067F1990192500FB22BB /* TouchLockerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TouchLockerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		455006841990192500FB22BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		455006851990192500FB22BB /* Touch___LockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Touch___LockTests.swift"; sourceTree = "<group>"; };
+		4572A1E51990833100713281 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +68,8 @@
 		455006611990192500FB22BB = {
 			isa = PBXGroup;
 			children = (
-				4550066C1990192500FB22BB /* Touch & Lock */,
-				455006821990192500FB22BB /* Touch & LockTests */,
+				4550066C1990192500FB22BB /* TouchLocker */,
+				455006821990192500FB22BB /* TouchLockerTests */,
 				4550066B1990192500FB22BB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,22 +77,24 @@
 		4550066B1990192500FB22BB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4550066A1990192500FB22BB /* Touch & Lock.app */,
-				4550067F1990192500FB22BB /* Touch & LockTests.xctest */,
+				4550066A1990192500FB22BB /* TouchLocker.app */,
+				4550067F1990192500FB22BB /* TouchLockerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4550066C1990192500FB22BB /* Touch & Lock */ = {
+		4550066C1990192500FB22BB /* TouchLocker */ = {
 			isa = PBXGroup;
 			children = (
 				4550066F1990192500FB22BB /* AppDelegate.swift */,
 				455006741990192500FB22BB /* ViewController.swift */,
+				4572A1E51990833100713281 /* ImageViewController.swift */,
 				455006761990192500FB22BB /* Main.storyboard */,
 				455006791990192500FB22BB /* Images.xcassets */,
 				455006711990192500FB22BB /* Touch___Lock.xcdatamodeld */,
 				4550066D1990192500FB22BB /* Supporting Files */,
 			);
+			name = TouchLocker;
 			path = "Touch & Lock";
 			sourceTree = "<group>";
 		};
@@ -95,12 +106,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		455006821990192500FB22BB /* Touch & LockTests */ = {
+		455006821990192500FB22BB /* TouchLockerTests */ = {
 			isa = PBXGroup;
 			children = (
 				455006851990192500FB22BB /* Touch___LockTests.swift */,
 				455006831990192500FB22BB /* Supporting Files */,
 			);
+			name = TouchLockerTests;
 			path = "Touch & LockTests";
 			sourceTree = "<group>";
 		};
@@ -115,9 +127,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		455006691990192500FB22BB /* Touch & Lock */ = {
+		455006691990192500FB22BB /* TouchLocker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 455006891990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & Lock" */;
+			buildConfigurationList = 455006891990192500FB22BB /* Build configuration list for PBXNativeTarget "TouchLocker" */;
 			buildPhases = (
 				455006661990192500FB22BB /* Sources */,
 				455006671990192500FB22BB /* Frameworks */,
@@ -127,14 +139,14 @@
 			);
 			dependencies = (
 			);
-			name = "Touch & Lock";
+			name = TouchLocker;
 			productName = "Touch & Lock";
-			productReference = 4550066A1990192500FB22BB /* Touch & Lock.app */;
+			productReference = 4550066A1990192500FB22BB /* TouchLocker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4550067E1990192500FB22BB /* Touch & LockTests */ = {
+		4550067E1990192500FB22BB /* TouchLockerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4550068C1990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & LockTests" */;
+			buildConfigurationList = 4550068C1990192500FB22BB /* Build configuration list for PBXNativeTarget "TouchLockerTests" */;
 			buildPhases = (
 				4550067B1990192500FB22BB /* Sources */,
 				4550067C1990192500FB22BB /* Frameworks */,
@@ -144,10 +156,11 @@
 			);
 			dependencies = (
 				455006811990192500FB22BB /* PBXTargetDependency */,
+				4572A1E8199088F300713281 /* PBXTargetDependency */,
 			);
-			name = "Touch & LockTests";
+			name = TouchLockerTests;
 			productName = "Touch & LockTests";
-			productReference = 4550067F1990192500FB22BB /* Touch & LockTests.xctest */;
+			productReference = 4550067F1990192500FB22BB /* TouchLockerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -161,6 +174,7 @@
 				TargetAttributes = {
 					455006691990192500FB22BB = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = FG7AYYTX96;
 					};
 					4550067E1990192500FB22BB = {
 						CreatedOnToolsVersion = 6.0;
@@ -168,7 +182,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 455006651990192500FB22BB /* Build configuration list for PBXProject "Touch & Lock" */;
+			buildConfigurationList = 455006651990192500FB22BB /* Build configuration list for PBXProject "TouchLocker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -181,8 +195,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				455006691990192500FB22BB /* Touch & Lock */,
-				4550067E1990192500FB22BB /* Touch & LockTests */,
+				455006691990192500FB22BB /* TouchLocker */,
+				4550067E1990192500FB22BB /* TouchLockerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -213,6 +227,7 @@
 			files = (
 				455006751990192500FB22BB /* ViewController.swift in Sources */,
 				455006731990192500FB22BB /* Touch___Lock.xcdatamodeld in Sources */,
+				4572A1E61990833100713281 /* ImageViewController.swift in Sources */,
 				455006701990192500FB22BB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,8 +245,13 @@
 /* Begin PBXTargetDependency section */
 		455006811990192500FB22BB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 455006691990192500FB22BB /* Touch & Lock */;
+			target = 455006691990192500FB22BB /* TouchLocker */;
 			targetProxy = 455006801990192500FB22BB /* PBXContainerItemProxy */;
+		};
+		4572A1E8199088F300713281 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 455006691990192500FB22BB /* TouchLocker */;
+			targetProxy = 4572A1E7199088F300713281 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -329,9 +349,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Touch & Lock/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TouchLocker;
 			};
 			name = Debug;
 		};
@@ -340,9 +361,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Touch & Lock/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TouchLocker;
 			};
 			name = Release;
 		};
@@ -360,8 +382,8 @@
 				);
 				INFOPLIST_FILE = "Touch & LockTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Touch & Lock.app/Touch & Lock";
+				PRODUCT_NAME = TouchLockerTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TouchLocker.app/TouchLocker";
 			};
 			name = Debug;
 		};
@@ -375,15 +397,15 @@
 				);
 				INFOPLIST_FILE = "Touch & LockTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Touch & Lock.app/Touch & Lock";
+				PRODUCT_NAME = TouchLockerTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TouchLocker.app/TouchLocker";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		455006651990192500FB22BB /* Build configuration list for PBXProject "Touch & Lock" */ = {
+		455006651990192500FB22BB /* Build configuration list for PBXProject "TouchLocker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				455006871990192500FB22BB /* Debug */,
@@ -392,21 +414,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		455006891990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & Lock" */ = {
+		455006891990192500FB22BB /* Build configuration list for PBXNativeTarget "TouchLocker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4550068A1990192500FB22BB /* Debug */,
 				4550068B1990192500FB22BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		4550068C1990192500FB22BB /* Build configuration list for PBXNativeTarget "Touch & LockTests" */ = {
+		4550068C1990192500FB22BB /* Build configuration list for PBXNativeTarget "TouchLockerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4550068D1990192500FB22BB /* Debug */,
 				4550068E1990192500FB22BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
