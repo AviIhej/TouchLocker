@@ -19,12 +19,19 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if let image = mainImage {
+            self.mainImageView.image = image
+            self.mainImageView.hidden = true
+        }
+    }
+    
     override func viewDidAppear(animated: Bool) {
         if let image = mainImage {
             var ratio = CGRectGetWidth(self.scrollView.bounds) / image.size.width
             self.mainImageView.bounds = CGRectMake(0, 0, CGRectGetWidth(self.scrollView.bounds), image.size.height * ratio)
             self.mainImageView.center = CGPointMake(CGRectGetMidX(self.scrollView.bounds), CGRectGetMidY(self.scrollView.bounds))
-            self.mainImageView.image = image
+            self.mainImageView.hidden = false
         }
         
         self.scrollView.clipsToBounds = true

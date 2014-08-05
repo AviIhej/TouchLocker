@@ -120,6 +120,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         var image = UIImage(contentsOfFile: imgPath)
         var imageView = UIImageView(image: image)
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
         cell.backgroundView = imageView
         
         return cell;
@@ -137,6 +139,31 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         var docsDir = rootDir[0] as NSString
         var imgPath = docsDir.stringByAppendingString("/\(self.jpegs[cell.tag])")
         imageViewer.setMainImage(imgPath)
+    }
+    
+    //UITableView delegate method, what to do after side-swiping cell
+    override func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+            //create favoriting action
+            var faveAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
+                title: "Delete",
+                handler: {
+                    void in
+                    var cell    = tableView.cellForRowAtIndexPath(indexPath)
+                    var rootDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+                    var docsDir = rootDir[0] as NSString
+                    var imgPath = docsDir.stringByAppendingString("/\(self.jpegs[cell.tag])")
+                    NSFileManager.defaultManager().removeItemAtPath(imgPath, error: nil)
+                    self.jpegs.removeAtIndex(cell.tag)
+                    tableView.reloadData()
+            })
+            faveAction.backgroundColor = UIColor(red:1, green:0, blue:0, alpha:1)
+            return [faveAction]
+
+    }
+    
+    //UITableView delegate method, needed because of bug in iOS 8 for now
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        // No statement or algorithm is needed in here. Just the implementation
     }
     
     //UITableView delegate method, creates animation when displaying cell
