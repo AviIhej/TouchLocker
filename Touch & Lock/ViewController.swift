@@ -12,7 +12,8 @@ import QuartzCore
 
 class ViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var imgTable : UITableView!
-    var jpegs : [String] = []
+    var paths : [String]  = []
+    var jpegs : [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +89,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        self.jpegs = []
+        self.paths.removeAll(keepCapacity: false)
+        self.jpegs.removeAll(keepCapacity: false)
         var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         var docsDir  = rootDir[0] as NSString
         var fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil) as [String]
@@ -96,7 +98,9 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         //filter by jpegs
         for file in fileList {
             if file.hasSuffix(".jpg") {
-                self.jpegs.append(file)
+                var path = "\(docsDir)/\(file)"
+                self.paths.append(path)
+                self.jpegs.append(UIImage(contentsOfFile: path))
             }
         }
 
@@ -113,12 +117,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         }
         cell.tag = indexPath.row
         
-        var rootDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        var docsDir = rootDir[0] as NSString
-        var imgPath = docsDir.stringByAppendingString("/\(self.jpegs[indexPath.row])")
-        
-        var image = UIImage(contentsOfFile: imgPath)
-        var imageView = UIImageView(image: image)
+        var imageView = UIImageView(image: self.jpegs[indexPath.row])
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
@@ -135,10 +134,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         var imageViewer = segue.destinationViewController as ImageViewController
         var cell        = sender as UITableViewCell
 
-        var rootDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        var docsDir = rootDir[0] as NSString
-        var imgPath = docsDir.stringByAppendingString("/\(self.jpegs[cell.tag])")
-        imageViewer.setMainImage(imgPath)
+        imageViewer.setMainImage(self.paths[cell.tag])
     }
     
     //UITableView delegate method, what to do after side-swiping cell
@@ -149,10 +145,9 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
                 handler: {
                     void in
                     var cell    = tableView.cellForRowAtIndexPath(indexPath)
-                    var rootDir = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-                    var docsDir = rootDir[0] as NSString
-                    var imgPath = docsDir.stringByAppendingString("/\(self.jpegs[cell.tag])")
-                    NSFileManager.defaultManager().removeItemAtPath(imgPath, error: nil)
+
+                    NSFileManager.defaultManager().removeItemAtPath(self.paths[cell.tag], error: nil)
+                    self.paths.removeAtIndex(cell.tag)
                     self.jpegs.removeAtIndex(cell.tag)
                     tableView.reloadData()
             })

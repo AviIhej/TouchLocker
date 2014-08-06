@@ -62,7 +62,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Place your finger on the home button to unlock.", reply: { (success, error) in
                 NSOperationQueue.mainQueue().addOperationWithBlock({
                     if success {
-                        self.blockade!.removeFromSuperview()
+                        UIView.animateWithDuration(
+                            0.5,
+                            animations: {
+                                void in
+                                self.blockade!.alpha = 0
+                            },
+                            completion:{
+                                bool in
+                                self.blockade!.removeFromSuperview()
+                                self.blockade!.alpha = 1
+                            })
                     } else {
                         var alert = UIAlertView(title: "Biometrics Error",
                             message: "There was an error reading your fingerprint. \(error.code)",
