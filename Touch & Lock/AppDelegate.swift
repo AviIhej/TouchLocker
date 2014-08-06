@@ -18,8 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
-        blur()
-        authenticate()
+        if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce") {
+            // app already launched, proceed as normal
+            blur()
+            authenticate()
+        }
+        else {
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            // This is the first launch ever
+            var alert = UIAlertView(title: "Instructions",
+                message: "Thank you for downloading TouchLocker! To add images to your locker from your Library, simply press the album icon on the top left. To take a photo, touch the camera on the top right. Every time you exit the application, you'll be prompted for your TouchID.",
+                delegate: self,
+                cancelButtonTitle: "OK")
+
+            alert.show()
+        }
         return true
     }
 

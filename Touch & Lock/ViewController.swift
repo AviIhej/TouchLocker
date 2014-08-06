@@ -53,6 +53,19 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             lockImageAtURL(imagePath)
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        //help text
+        if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasntDeleted")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            var help = UIAlertView(title: "Instructions",
+                message: "To remove an image from your locker, swipe the image to the left and press delete.",
+                delegate: self,
+                cancelButtonTitle: "OK")
+            
+            help.show()
+        }
     }
     
     func lockImage(image : UIImage) {
@@ -81,8 +94,20 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             
             var data   = NSData(bytesNoCopy: buff, length: buffed, freeWhenDone: true)
             NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
-            
             self.imgTable.reloadData()
+            
+            //help text
+            if !NSUserDefaults.standardUserDefaults().boolForKey("HasAddedOnce") {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasAddedOnce")
+                NSUserDefaults.standardUserDefaults().synchronize()
+                // This is the first add
+                var alert = UIAlertView(title: "Remember...",
+                    message: "Adding saved images to your locker will not delete them from your Library.",
+                    delegate: self,
+                    cancelButtonTitle: "OK")
+                
+                alert.show()
+            }
         }, failureBlock: { (error) in
             NSLog("error: \(error.localizedDescription)")
         })
