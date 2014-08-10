@@ -12,31 +12,30 @@ import LocalAuthentication
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-                            
-    var window: UIWindow?
-    var blockade : UIView?
+    var window    : UIWindow?
+    var blockade  : UIView?
+    var unlockBtn : UIButton?
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
-        if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunchedOnce") {
+        if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunched") {
             // app already launched, proceed as normal
             blur()
             authenticate()
         }
         else {
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunchedOnce")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunched")
             NSUserDefaults.standardUserDefaults().synchronize()
             // This is the first launch ever
-            var alert = UIAlertView(title: "Instructions",
-                message: "Thank you for downloading TouchLocker! To add images to your locker from your Library, simply press the album icon on the top left. To take a photo, touch the camera on the top right. Every time you exit the application, you'll be prompted for your TouchID.",
+            var alert = UIAlertView(title: "Get Started",
+                message: "Thank you for downloading TouchLocker! To get started, add photos to your locker by tapping the album icon on the top left, or add a new photo directly by tapping the camera icon on the top right.",
                 delegate: self,
                 cancelButtonTitle: "OK")
-
             alert.show()
         }
         return true
     }
-
+    
     func applicationWillResignActive(application: UIApplication!) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -57,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func blur() {
         if let window = self.window {
             if self.blockade == nil {
-                var effect   = UIBlurEffect(style: UIBlurEffectStyle.Light)
+                var effect    = UIBlurEffect(style: UIBlurEffectStyle.Light)
                 self.blockade = UIVisualEffectView(effect: effect)
                 self.blockade!.frame = window.frame
             }
@@ -66,6 +65,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window.makeKeyAndVisible()
                 window.addSubview(blockade!)
                 window.bringSubviewToFront(blockade!)
+
+                var centeredRect = CGRect(x: window.frame.midX - 50, y: window.frame.midY - 25, width: 100, height: 50)
+                self.unlockBtn = UIButton(frame: centeredRect)
+                self.unlockBtn!.hidden = true
+                self.unlockBtn!.backgroundColor      = UIColor(white: 0.8, alpha: 0.3)
+                self.unlockBtn!.titleLabel.textColor = UIColor.whiteColor()
+                self.unlockBtn!.setTitle("Unlock", forState: UIControlState.Normal)
+                self.unlockBtn!.addTarget(self, action: "authenticate", forControlEvents: UIControlEvents.TouchUpInside)
+
+                self.blockade!.addSubview(self.unlockBtn!)
+                self.blockade!.bringSubviewToFront(self.unlockBtn!)
             }
         }
     }
@@ -75,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil) {
             context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Place your finger on the home button to unlock.", reply: { (success, error) in
                 NSOperationQueue.mainQueue().addOperationWithBlock({
-                    if success {
+                    if success { //authentication successful
                         UIView.animateWithDuration(
                             0.5,
                             animations: {
@@ -85,14 +95,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             completion:{
                                 bool in
                                 self.blockade!.removeFromSuperview()
+                                //remove button to reinitiate auth
+                                self.unlockBtn!.hidden = true
                                 self.blockade!.alpha = 1
                             })
-                    } else {
+                    } else { //could not authenticate
+                        var alertMessage = ""
+                        switch error.code {
+                            case LAError.UserFallback.toRaw():
+                                alertMessage = "Sorry, you must provide your fingerprint to unlock your photos."
+                            case LAError.UserCancel.toRaw():
+                                alertMessage = "Sorry, you must provide your fingerprint to unlock your photos."
+                            default:
+                                alertMessage = "There was an error reading your fingerprint."
+                        }
                         var alert = UIAlertView(title: "Biometrics Error",
-                            message: "There was an error reading your fingerprint. \(error.code)",
+                            message: alertMessage,
                             delegate: self,
                             cancelButtonTitle: "OK")
                         alert.show()
+                        
+                        self.unlockBtn!.hidden = false
                     }
                 })
             })
