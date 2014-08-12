@@ -86,7 +86,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
             var docsDir  = rootDir[0] as NSString
             var fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil)
-            var imgPath  = docsDir.stringByAppendingString("/photo\(fileList.count+1).jpg")
+            var imgPath  = docsDir.stringByAppendingString("/photo\(fileList.count).jpg")
             
             var rep    = asset.defaultRepresentation()
             var buff   = UnsafeMutablePointer<UInt8>.alloc(Int(rep.size()))
