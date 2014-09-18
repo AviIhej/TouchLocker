@@ -71,7 +71,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     func lockImage(image : UIImage) {
         var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         var docsDir  = rootDir[0] as NSString
-        var fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil)
+        var fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil) as [String]
         var imgPath  = docsDir.stringByAppendingString("/photo\(fileList.count+1).jpg")
         
         var data     = UIImageJPEGRepresentation(image, 1)
@@ -85,7 +85,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         assetLibrary.assetForURL(imagePath, resultBlock: { (asset) in
             var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
             var docsDir  = rootDir[0] as NSString
-            var fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil)
+            var fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil) as [String]
             var imgPath  = docsDir.stringByAppendingString("/photo\(fileList.count).jpg")
             
             var rep    = asset.defaultRepresentation()
@@ -113,7 +113,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         })
     }
     
-    override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.paths.removeAll(keepCapacity: false)
         self.jpegs.removeAll(keepCapacity: false)
         var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
@@ -132,30 +132,31 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         return self.jpegs.count
     }
     
-    override func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let simpleTableIdentifier: NSString = "SimpleTableCell"
         
-        var cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier(simpleTableIdentifier) as UITableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(simpleTableIdentifier) as? UITableViewCell
         
         if cell == nil {
             cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: simpleTableIdentifier)
         }
-        cell.tag = indexPath.row
+        
+        cell!.tag = indexPath.row
         
         var imageView = UIImageView(image: self.jpegs[indexPath.row])
         imageView.contentMode = UIViewContentMode.ScaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
-        cell.backgroundView = imageView
+        cell!.backgroundView = imageView
         
-        return cell;
+        return cell!
     }
     
-    override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 320
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         var imageViewer = segue.destinationViewController as ImageViewController
         var cell        = sender as UITableViewCell
 
@@ -163,13 +164,13 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     //UITableView delegate method, what to do after side-swiping cell
-    override func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
             //create favoriting action
             var faveAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
                 title: "Delete",
                 handler: {
                     void in
-                    var cell    = tableView.cellForRowAtIndexPath(indexPath)
+                    var cell    = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
 
                     NSFileManager.defaultManager().removeItemAtPath(self.paths[cell.tag], error: nil)
                     self.paths.removeAtIndex(cell.tag)
@@ -187,7 +188,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     //UITableView delegate method, creates animation when displaying cell
-    override func tableView(tableView: UITableView!, willDisplayCell cell: UITableViewCell!, forRowAtIndexPath indexPath: NSIndexPath!) {
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         self.animateIn(cell)
     }
     
