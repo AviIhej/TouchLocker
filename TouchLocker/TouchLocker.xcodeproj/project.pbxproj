@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		455006701990192500FB22BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4550066F1990192500FB22BB /* AppDelegate.swift */; };
-		455006731990192500FB22BB /* Touch___Lock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 455006711990192500FB22BB /* Touch___Lock.xcdatamodeld */; };
 		455006751990192500FB22BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455006741990192500FB22BB /* ViewController.swift */; };
 		455006781990192500FB22BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455006761990192500FB22BB /* Main.storyboard */; };
 		4550067A1990192500FB22BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455006791990192500FB22BB /* Images.xcassets */; };
 		455006861990192500FB22BB /* Touch___LockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455006851990192500FB22BB /* Touch___LockTests.swift */; };
 		4572A1E61990833100713281 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572A1E51990833100713281 /* ImageViewController.swift */; };
+		45C30F6919E095FC00721CAE /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30F6819E095FC00721CAE /* TextViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +37,6 @@
 		4550066A1990192500FB22BB /* TouchLocker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchLocker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4550066E1990192500FB22BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4550066F1990192500FB22BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		455006721990192500FB22BB /* Touch___Lock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Touch___Lock.xcdatamodel"; sourceTree = "<group>"; };
 		455006741990192500FB22BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		455006771990192500FB22BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		455006791990192500FB22BB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -45,6 +44,7 @@
 		455006841990192500FB22BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		455006851990192500FB22BB /* Touch___LockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Touch___LockTests.swift"; sourceTree = "<group>"; };
 		4572A1E51990833100713281 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		45C30F6819E095FC00721CAE /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +90,8 @@
 				455006741990192500FB22BB /* ViewController.swift */,
 				4572A1E51990833100713281 /* ImageViewController.swift */,
 				455006761990192500FB22BB /* Main.storyboard */,
+				45C30F6819E095FC00721CAE /* TextViewController.swift */,
 				455006791990192500FB22BB /* Images.xcassets */,
-				455006711990192500FB22BB /* Touch___Lock.xcdatamodeld */,
 				4550066D1990192500FB22BB /* Supporting Files */,
 			);
 			name = TouchLocker;
@@ -225,8 +225,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C30F6919E095FC00721CAE /* TextViewController.swift in Sources */,
 				455006751990192500FB22BB /* ViewController.swift in Sources */,
-				455006731990192500FB22BB /* Touch___Lock.xcdatamodeld in Sources */,
 				4572A1E61990833100713281 /* ImageViewController.swift in Sources */,
 				455006701990192500FB22BB /* AppDelegate.swift in Sources */,
 			);
@@ -433,19 +433,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		455006711990192500FB22BB /* Touch___Lock.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				455006721990192500FB22BB /* Touch___Lock.xcdatamodel */,
-			);
-			currentVersion = 455006721990192500FB22BB /* Touch___Lock.xcdatamodel */;
-			path = "Touch___Lock.xcdatamodeld";
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 455006621990192500FB22BB /* Project object */;
 }

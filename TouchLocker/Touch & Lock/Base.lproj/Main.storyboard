@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wne-Zz-b0J">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wne-Zz-b0J">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--TouchLocker-->
         <scene sceneID="OsU-bo-4R5">
             <objects>
                 <tableViewController id="tDq-dJ-Xgj" customClass="ViewController" customModule="TouchLocker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JVq-5W-Wda">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JVq-5W-Wda">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SimpleTableCell" id="cvP-wP-PCM">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImageTableCell" id="cvP-wP-PCM">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" tableViewCell="cvP-wP-PCM" id="Bes-RW-1gm">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <segue destination="UKj-MK-jYQ" kind="show" identifier="BlowUpImage" id="kcJ-m4-hqA"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextTableCell" id="Mr9-m4-mXz">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" tableViewCell="Mr9-m4-mXz" id="neV-rc-Nw5">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <segue destination="axL-Ck-Q1C" kind="show" identifier="BlowUpText" id="zr2-bw-QWG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -33,29 +46,68 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="TouchLocker" id="d2M-nP-SVP">
                         <barButtonItem key="backBarButtonItem" title="Back" id="jMY-Ca-8W8"/>
-                        <barButtonItem key="leftBarButtonItem" image="ios7-albums-outline" id="J9m-tJ-PaW">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="J9m-tJ-PaW">
                             <connections>
-                                <action selector="copyFileFromLibrary:" destination="tDq-dJ-Xgj" id="kCx-FU-Mzm"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ios7-camera-outline" id="jZU-Uu-Rht">
-                            <connections>
-                                <action selector="addFileFromCamera:" destination="tDq-dJ-Xgj" id="bIT-3y-sXS"/>
+                                <action selector="addToTouchLocker:" destination="tDq-dJ-Xgj" id="cMI-oX-jbb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="imgTable" destination="JVq-5W-Wda" id="rlJ-W2-Dla"/>
+                        <outlet property="previewTable" destination="JVq-5W-Wda" id="XnT-rz-R5A"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OtF-xO-3Ea" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-297" y="-107"/>
         </scene>
-        <!--Image View Controller-->
+        <!--TouchLocker-->
+        <scene sceneID="Hx6-bh-cPX">
+            <objects>
+                <viewController id="axL-Ck-Q1C" customClass="TextViewController" customModule="TouchLocker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AJF-Pv-cbE"/>
+                        <viewControllerLayoutGuide type="bottom" id="uAh-cx-pd4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E4G-r8-6e2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" translatesAutoresizingMaskIntoConstraints="NO" id="SBM-nJ-ira">
+                                <rect key="frame" x="16" y="72" width="568" height="508"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SBM-nJ-ira" firstAttribute="top" secondItem="AJF-Pv-cbE" secondAttribute="bottom" constant="8" symbolic="YES" id="B7I-dy-vql"/>
+                            <constraint firstItem="SBM-nJ-ira" firstAttribute="trailing" secondItem="E4G-r8-6e2" secondAttribute="trailingMargin" id="F3r-Jl-ELw"/>
+                            <constraint firstAttribute="bottom" secondItem="SBM-nJ-ira" secondAttribute="bottom" constant="20" symbolic="YES" id="HQH-4h-HoM"/>
+                            <constraint firstItem="SBM-nJ-ira" firstAttribute="leading" secondItem="E4G-r8-6e2" secondAttribute="leadingMargin" id="bGY-mB-DGl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="TouchLocker" id="Ryd-d8-mR7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="CdW-qr-EZr">
+                            <connections>
+                                <action selector="shareExternal:" destination="axL-Ck-Q1C" id="YKW-wg-7zu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textView" destination="SBM-nJ-ira" id="li9-BL-rVE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Rc-dp-jEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="373" y="-767"/>
+        </scene>
+        <!--TouchLocker-->
         <scene sceneID="kYa-Bz-tve">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XR6-Xs-nvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="UKj-MK-jYQ" customClass="ImageViewController" customModule="TouchLocker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c5p-Ss-ntr"/>
@@ -96,9 +148,9 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="lcR-0d-UtB">
+                    <navigationItem key="navigationItem" title="TouchLocker" id="lcR-0d-UtB">
                         <barButtonItem key="backBarButtonItem" title="Back" id="7WX-Su-z7g"/>
-                        <barButtonItem key="rightBarButtonItem" title="Share" id="Joc-Fi-5fQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Joc-Fi-5fQ">
                             <connections>
                                 <action selector="shareExternal:" destination="UKj-MK-jYQ" id="22U-fV-qDH"/>
                             </connections>
@@ -110,6 +162,7 @@
                         <outlet property="scrollView" destination="4cP-LX-smC" id="jlG-HR-2Ve"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XR6-Xs-nvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="373" y="-107"/>
         </scene>
@@ -131,8 +184,4 @@
             <point key="canvasLocation" x="-1117" y="-107"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="ios7-albums-outline" width="48" height="48"/>
-        <image name="ios7-camera-outline" width="48" height="48"/>
-    </resources>
 </document>
