@@ -93,6 +93,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
                           encoding: NSASCIIStringEncoding,
                              error: nil)
         
+        NSURL(fileURLWithPath: txtPath).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
+        
         self.previewTable.reloadData()
     }
     
@@ -100,11 +102,11 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
         var imgPath  = rootDir.stringByAppendingString("/photo\(NSDate.timeIntervalSinceReferenceDate()).jpg")
         
-        //explicitly exclude from iCloud backup
-        NSURL(fileURLWithPath: imgPath).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
-        
         var data     = UIImageJPEGRepresentation(image, 1)
         NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
+        
+        //explicitly exclude from iCloud backup
+        NSURL(fileURLWithPath: imgPath).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
         
         self.previewTable.reloadData()
     }
@@ -122,11 +124,11 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             var data   = NSData(bytesNoCopy: buff, length: buffed, freeWhenDone: true)
             NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
             
-            //reload table
-            self.previewTable.reloadData()
-            
             //explicitly exclude from iCloud backup
             NSURL(fileURLWithPath: imgPath).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
+            
+            //reload table
+            self.previewTable.reloadData()
             
             //help text
             if !NSUserDefaults.standardUserDefaults().boolForKey("HasAddedOnce") {

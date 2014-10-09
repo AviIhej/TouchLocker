@@ -18,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
+        // Don't backup documents directory!
+        var docsDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
+        var url      = NSURL(fileURLWithPath: docsDir)
+        url.setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
+        
         if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunched") {
             // app already launched, authenticate
             blur()
@@ -124,6 +129,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 var passcodeField = passcodeAttempt.textFields?.first as UITextField
                                 if(NSUserDefaults.standardUserDefaults().valueForKey("locker-pass") as String == passcodeField.text) {
                                     self.unlock()
+                                } else {
+                                    var alertMessage = "Sorry, that passcode is incorrect. Please try again."
+                                    var tryAgain = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+                                    var authenticate = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default) { (action) -> Void in
+                                        self.authenticate()
+                                    }
+                                    var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+                                    
+                                    tryAgain.addAction(cancel)
+                                    tryAgain.addAction(authenticate)
+                                    UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(tryAgain, animated: true, completion: nil)
                                 }
                             })
                             var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
