@@ -78,7 +78,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window.makeKeyAndVisible()
                 window.rootViewController?.view.addSubview(blockade!)
                 window.rootViewController?.view.bringSubviewToFront(blockade!)
-                
                 var centeredRect = CGRect(x: window.frame.midX - 50, y: window.frame.midY - 25, width: 100, height: 50)
                 self.unlockBtn = UIButton(frame: centeredRect)
                 self.unlockBtn!.hidden = true
@@ -110,6 +109,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func authenticate() {
+        self.unlockBtn!.hidden = true //hide unlock button, since we're unlocking
+        
+        // attempt to authenticate via fingerprint
         var context = LAContext()
         if context.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: nil) {
             context.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Place your finger on the home button to unlock.", reply: { (success, error) in
@@ -118,67 +120,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.unlock()
                     } else { //could not authenticate
                         switch error.code {
-                        case LAError.UserFallback.toRaw():
-                            var alertMessage = "Enter your backup passcode to continue:"
-                            var passcodeAttempt = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-                            passcodeAttempt.addTextFieldWithConfigurationHandler({ (textField) -> Void in
-                                textField.secureTextEntry = true
-                            })
-                            
-                            var attempt = UIAlertAction(title: "Unlock", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                                var passcodeField = passcodeAttempt.textFields?.first as UITextField
-                                if(NSUserDefaults.standardUserDefaults().valueForKey("locker-pass") as String == passcodeField.text) {
-                                    self.unlock()
-                                } else {
-                                    var alertMessage = "Sorry, that passcode is incorrect. Please try again."
-                                    var tryAgain = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-                                    var authenticate = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default) { (action) -> Void in
-                                        self.authenticate()
-                                    }
-                                    var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-                                    
-                                    tryAgain.addAction(cancel)
-                                    tryAgain.addAction(authenticate)
-                                    UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(tryAgain, animated: true, completion: nil)
-                                }
-                            })
-                            var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-                            passcodeAttempt.addAction(attempt)
-                            passcodeAttempt.addAction(cancel)
-                            UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(passcodeAttempt, animated: true, completion: nil)
-                        case LAError.UserCancel.toRaw():
-                            var alertMessage = "Sorry, you must provide your fingerprint to enter TouchLocker."
+                        case LAError.UserFallback.toRaw(): //user chose to authenticate with passcode
+                            self.authenticateWithPasscode()
+                        case LAError.UserCancel.toRaw():   //user chose to cancel authentication
+                            var alertMessage = "Sorry, you must provide your fingerprint or passcode to enter TouchLocker."
                             var cancelled = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
                             var cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
                             cancelled.addAction(cancel)
                             UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(cancelled, animated: true, completion: nil)
-                        default:
+                            self.unlockBtn!.hidden = false
+                        default: //other authentication error
                             var alertMessage = "There was an error reading your fingerprint."
                             var error = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
                             var okay = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
                             error.addAction(okay)
                             UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(error, animated: true, completion: nil)
+                            self.unlockBtn!.hidden = false
                         }
-                        
-                        self.unlockBtn!.hidden = false
                     }
                 })
             })
-        } else {
-            var alertMessage = "It seems you have not set up a fingerprint yet. Please go to Settings > Touch ID and do so before using this application."
-            var error = UIAlertController(title: "Biometrics Error", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-            var okay = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-            error.addAction(okay)
-            UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(error, animated: true, completion: nil)
+        } else { //if fingerprint unavailable, attempt unlock via passcode
+            self.authenticateWithPasscode()
         }
     }
     
+    //on first run, ask to setup passcode
     func promptToSetupPasscode(firstAttempt : Bool) {
         var title : String
         var message : String
         if firstAttempt { //ask to setup password
             title = "First..."
-            message = "Before you get started, please set a backup passcode in case your fingerprint is unavailable."
+            message = "Before you get started, please set a passcode in case your fingerprint is unavailable."
             
         } else { //password error (too short)
             title = "Oops..."
@@ -207,6 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController?.presentViewController(promptToSetupPasscode, animated: true, completion: nil)
     }
     
+    //set passcode if valid
     func setupPasscode(passcode : String) {
         if countElements(passcode) >= 4 { //good password length!
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunched")
@@ -221,9 +195,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             window?.makeKeyAndVisible()
             window?.rootViewController?.presentViewController(getStarted, animated: true, completion: nil)
-        } else {
+        } else { //not a good password length, prompt them again
             self.promptToSetupPasscode(false)
         }
+    }
+    
+    //authenticate user with a passcode
+    func authenticateWithPasscode() {
+        var alertMessage = "Enter your passcode to unlock:"
+        var passcodeAttempt = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        passcodeAttempt.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.secureTextEntry = true
+        })
+        
+        var attempt = UIAlertAction(title: "Unlock", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            var passcodeField = passcodeAttempt.textFields?.first as UITextField
+            
+            //if password is correct
+            if(NSUserDefaults.standardUserDefaults().valueForKey("locker-pass") as String == passcodeField.text) {
+                self.unlock()
+            } else { //password incorrect, prompt to try again
+                var alertMessage = "Sorry, that passcode is incorrect. Please try again."
+                var tryAgain = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+                var authenticate = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default) { (action) -> Void in
+                    self.authenticate()
+                }
+                var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+                    self.unlockBtn!.hidden = false
+                }
+                
+                tryAgain.addAction(cancel)
+                tryAgain.addAction(authenticate)
+                UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(tryAgain, animated: true, completion: nil)
+            }
+        })
+        var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            self.unlockBtn!.hidden = false
+        }
+        passcodeAttempt.addAction(attempt)
+        passcodeAttempt.addAction(cancel)
+        UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(passcodeAttempt, animated: true, completion: nil)
     }
 
 }

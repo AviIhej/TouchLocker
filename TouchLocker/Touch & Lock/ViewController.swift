@@ -27,6 +27,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         super.didReceiveMemoryWarning()
     }
     
+    //menu for adding item to TouchLocker
     @IBAction func addToTouchLocker(sender : UIBarButtonItem) {
         var adding = UIAlertController(title: "Add to TouchLocker", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         var addText = UIAlertAction(title: "Text Snippet", style: UIAlertActionStyle.Default) { (action) -> Void in
@@ -46,7 +47,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         adding.addAction(cancel)
         self.presentViewController(adding, animated: true, completion: nil)
     }
-
+    
+    //add text snippet to TouchLocker
     func addText() {
         //text snippet
         var addingText = UIAlertController(title: "Text Snippet", message: "", preferredStyle: UIAlertControllerStyle.Alert)
@@ -68,6 +70,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         self.presentViewController(addingText, animated: true, completion: nil)
     }
     
+    //take photo and add to TouchLocker
     func addPhotoFromCamera() {
         //photo from camera
         var imagePickerController = UIImagePickerController()
@@ -76,6 +79,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         self.presentViewController(imagePickerController, animated: true, completion: nil)
     }
     
+    //add existing photo to TouchLocker
     func addPhotoFromAlbum() {
         //photo from album
         var imagePickerController = UIImagePickerController()
@@ -84,6 +88,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         self.presentViewController(imagePickerController, animated: true, completion: nil)
     }
     
+    //save text and reload
     func lockText(text : String) {
         var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
         var txtPath  = rootDir.stringByAppendingString("/text\(NSDate.timeIntervalSinceReferenceDate()).txt")
@@ -93,11 +98,10 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
                           encoding: NSASCIIStringEncoding,
                              error: nil)
         
-        NSURL(fileURLWithPath: txtPath).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
-        
-        self.previewTable.reloadData()
+        self.addedNew("text", atPath: txtPath)
     }
     
+    //save camera image and reload
     func lockImage(image : UIImage) {
         var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
         var imgPath  = rootDir.stringByAppendingString("/photo\(NSDate.timeIntervalSinceReferenceDate()).jpg")
@@ -105,12 +109,10 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         var data     = UIImageJPEGRepresentation(image, 1)
         NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
         
-        //explicitly exclude from iCloud backup
-        NSURL(fileURLWithPath: imgPath).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
-        
-        self.previewTable.reloadData()
+        self.addedNew("image", atPath: imgPath)
     }
     
+    //save album image and reload
     func lockImageAtURL(imagePath : NSURL) {
         var assetLibrary = ALAssetsLibrary()
         assetLibrary.assetForURL(imagePath, resultBlock: { (asset) in
@@ -124,29 +126,59 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             var data   = NSData(bytesNoCopy: buff, length: buffed, freeWhenDone: true)
             NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
             
-            //explicitly exclude from iCloud backup
-            NSURL(fileURLWithPath: imgPath).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
-            
-            //reload table
-            self.previewTable.reloadData()
-            
-            //help text
-            if !NSUserDefaults.standardUserDefaults().boolForKey("HasAddedOnce") {
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasAddedOnce")
-                NSUserDefaults.standardUserDefaults().synchronize()
-                // This is the first add
-                var alert = UIAlertView(title: "Remember...",
-                    message: "Adding saved images to your locker will not delete them from your Library.",
-                    delegate: self,
-                    cancelButtonTitle: "OK")
-                
-                alert.show()
-            }
+            self.addedNew("existing image", atPath: imgPath)
         }, failureBlock: { (error) in
             NSLog("error: \(error.localizedDescription)")
         })
     }
     
+    func addedNew(type: String, atPath url: String) {
+        //explicitly exclude item from iCloud backup
+        NSURL(fileURLWithPath: url).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
+        
+        //reload table
+        self.previewTable.reloadData()
+        
+        //help text
+        if type == "existing image" && !NSUserDefaults.standardUserDefaults().boolForKey("HasAddedOnce") {
+            self.reminderToDeleteFromLibrary()
+        } else if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
+            self.reminderHowToDeleteFromTouchLocker()
+        }
+    }
+    
+    func reminderToDeleteFromLibrary() {
+        var alert = UIAlertController(title: "Remember...",
+            message: "Adding saved images to your locker will not delete them from your Library.",
+            preferredStyle: UIAlertControllerStyle.Alert)
+        
+        var accept = UIAlertAction(title: "Continue", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasAddedOnce")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
+                self.reminderHowToDeleteFromTouchLocker()
+            }
+        }
+        
+        alert.addAction(accept)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func reminderHowToDeleteFromTouchLocker() {
+        var alert = UIAlertController(title: "Instructions",
+            message: "To remove something from your locker, swipe the item to the left and press delete.",
+            preferredStyle: UIAlertControllerStyle.Alert)
+        
+        var accept = UIAlertAction(title: "Continue", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasntDeleted")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
+        alert.addAction(accept)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //camera or album image picker
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
         var mediaType = info[UIImagePickerControllerMediaType] as NSString
         if picker.sourceType == UIImagePickerControllerSourceType.Camera {
@@ -158,19 +190,6 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             lockImageAtURL(imagePath)
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
-        
-        //help text
-        if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasntDeleted")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            
-            var help = UIAlertView(title: "Instructions",
-                message: "To remove an image from your locker, swipe the image to the left and press delete.",
-                delegate: self,
-                cancelButtonTitle: "OK")
-            
-            help.show()
-        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
