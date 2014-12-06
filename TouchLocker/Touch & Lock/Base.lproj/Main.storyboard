@@ -46,7 +46,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="TouchLocker" id="d2M-nP-SVP">
                         <barButtonItem key="backBarButtonItem" title="Back" id="jMY-Ca-8W8"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="J9m-tJ-PaW">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="J9m-tJ-PaW">
                             <connections>
                                 <action selector="addToTouchLocker:" destination="tDq-dJ-Xgj" id="cMI-oX-jbb"/>
                             </connections>
@@ -79,7 +79,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

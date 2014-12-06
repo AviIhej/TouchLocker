@@ -14,11 +14,11 @@
 		<string>https://github.com/rmartinez93/TouchLocker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TouchLocker.xcodeproj</string>
+	<string>TouchLocker/TouchLocker.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>576D7088F3626A385158A032ECCD6590926A12B8</key>
-		<string>../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/rmartinez93/TouchLocker.git</string>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>576D7088F3626A385158A032ECCD6590926A12B8</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Touch%20&amp;%20Lock</string>
+			<string>TouchLocker</string>
 		</dict>
 	</array>
 </dict>

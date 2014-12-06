@@ -13,6 +13,10 @@
 		4550067A1990192500FB22BB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455006791990192500FB22BB /* Images.xcassets */; };
 		455006861990192500FB22BB /* Touch___LockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455006851990192500FB22BB /* Touch___LockTests.swift */; };
 		4572A1E61990833100713281 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572A1E51990833100713281 /* ImageViewController.swift */; };
+		45753C981A26695100BFFE86 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753C971A26695100BFFE86 /* Photos.framework */; };
+		45753C9A1A26697200BFFE86 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753C991A26697200BFFE86 /* QuartzCore.framework */; };
+		45753C9C1A26697F00BFFE86 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753C9B1A26697F00BFFE86 /* AssetsLibrary.framework */; };
+		45753C9E1A26698600BFFE86 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753C9D1A26698600BFFE86 /* UIKit.framework */; };
 		45C30F6919E095FC00721CAE /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30F6819E095FC00721CAE /* TextViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +48,10 @@
 		455006841990192500FB22BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		455006851990192500FB22BB /* Touch___LockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Touch___LockTests.swift"; sourceTree = "<group>"; };
 		4572A1E51990833100713281 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		45753C971A26695100BFFE86 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		45753C991A26697200BFFE86 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		45753C9B1A26697F00BFFE86 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		45753C9D1A26698600BFFE86 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		45C30F6819E095FC00721CAE /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,6 +60,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45753C9E1A26698600BFFE86 /* UIKit.framework in Frameworks */,
+				45753C9C1A26697F00BFFE86 /* AssetsLibrary.framework in Frameworks */,
+				45753C9A1A26697200BFFE86 /* QuartzCore.framework in Frameworks */,
+				45753C981A26695100BFFE86 /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +80,7 @@
 		455006611990192500FB22BB = {
 			isa = PBXGroup;
 			children = (
+				45753C9F1A26699100BFFE86 /* Frameworks */,
 				4550066C1990192500FB22BB /* TouchLocker */,
 				455006821990192500FB22BB /* TouchLockerTests */,
 				4550066B1990192500FB22BB /* Products */,
@@ -122,6 +135,17 @@
 				455006841990192500FB22BB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		45753C9F1A26699100BFFE86 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45753C9D1A26698600BFFE86 /* UIKit.framework */,
+				45753C9B1A26697F00BFFE86 /* AssetsLibrary.framework */,
+				45753C991A26697200BFFE86 /* QuartzCore.framework */,
+				45753C971A26695100BFFE86 /* Photos.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

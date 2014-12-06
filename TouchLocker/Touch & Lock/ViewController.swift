@@ -9,11 +9,12 @@
 import UIKit
 import AssetsLibrary
 import QuartzCore
+import Photos
 
 class ViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var previewTable : UITableView!
-    var paths : [String]    = []
-    var files : [AnyObject] = []
+    var paths = [] as [String]
+    var files = [] as [AnyObject]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,42 +127,34 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             var data   = NSData(bytesNoCopy: buff, length: buffed, freeWhenDone: true)
             NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
             
-            self.addedNew("existing image", atPath: imgPath)
+            //delete old image & complete
+            var asset = PHAsset.fetchAssetsWithALAssetURLs([imagePath], options: nil)
+            PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+                PHAssetChangeRequest.deleteAssets(asset)
+            }, completionHandler: { (success, error) -> Void in
+                if success {
+                    self.addedNew("existing image", atPath: imgPath)
+                } else {
+                    NSLog("error: \(error.localizedDescription)")
+                }
+            })
+            
+            
         }, failureBlock: { (error) in
             NSLog("error: \(error.localizedDescription)")
         })
     }
     
-    func addedNew(type: String, atPath url: String) {
+    func addedNew(type: String, atPath path: String) {
         //explicitly exclude item from iCloud backup
-        NSURL(fileURLWithPath: url).setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
-        
+        NSURL(fileURLWithPath: path).setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
         //reload table
         self.previewTable.reloadData()
         
         //help text
-        if type == "existing image" && !NSUserDefaults.standardUserDefaults().boolForKey("HasAddedOnce") {
-            self.reminderToDeleteFromLibrary()
-        } else if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
+        if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
             self.reminderHowToDeleteFromTouchLocker()
         }
-    }
-    
-    func reminderToDeleteFromLibrary() {
-        var alert = UIAlertController(title: "Remember...",
-            message: "Adding saved images to your locker will not delete them from your Library.",
-            preferredStyle: UIAlertControllerStyle.Alert)
-        
-        var accept = UIAlertAction(title: "Continue", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasAddedOnce")
-            NSUserDefaults.standardUserDefaults().synchronize()
-            if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
-                self.reminderHowToDeleteFromTouchLocker()
-            }
-        }
-        
-        alert.addAction(accept)
-        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func reminderHowToDeleteFromTouchLocker() {

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Don't backup documents directory!
         var docsDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
         var url      = NSURL(fileURLWithPath: docsDir)
-        url.setResourceValue(NSNumber.numberWithBool(true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
+        url.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
         
         if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunched") {
             // app already launched, authenticate
@@ -186,8 +186,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunched")
             NSUserDefaults.standardUserDefaults().setValue(passcode, forKey: "locker-pass")
             NSUserDefaults.standardUserDefaults().synchronize()
-            var getStarted = UIAlertController(title: "Get Started",
-                message: "Thank you! To get started, add photos to your locker by tapping the album icon on the top left, or add a new photo directly by tapping the camera icon on the top right.",
+            var getStarted = UIAlertController(title: "Thank you!",
+                message: "To get started, tap the \"+\" icon to add to your TouchLocker. Locking photos will remove them from your Photo Library and lock them here.",
                 preferredStyle: UIAlertControllerStyle.Alert)
             
             var start = UIAlertAction(title: "Continue", style: UIAlertActionStyle.Default, handler: nil)
