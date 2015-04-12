@@ -24,7 +24,6 @@ class TextViewController : UIViewController, UITextViewDelegate {
         
         self.automaticallyAdjustsScrollViewInsets = false
         textView.text = text
-        textView.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: self.view.window)
         
@@ -86,13 +85,14 @@ class TextViewController : UIViewController, UITextViewDelegate {
         self.keyboardIsShown = true
     }
     
-    func setTextURL(url : String, text : String) {
-        self.text = text
+    func addTextURL(url : String) {
+        self.text = NSString(contentsOfFile: url, encoding: NSASCIIStringEncoding, error: nil) as? String
         self.textURL = url
     }
     
     func textViewDidChange(textView: UITextView) {
-        (self.textView.text as NSString).writeToFile(self.textURL!, atomically: false, encoding: NSASCIIStringEncoding, error: nil)
+        (self.textView.text as NSString).writeToFile(self.textURL!, atomically: true, encoding: NSASCIIStringEncoding, error: nil)
+        self.text = self.textView.text
     }
     
     @IBAction func shareExternal(sender: AnyObject) {

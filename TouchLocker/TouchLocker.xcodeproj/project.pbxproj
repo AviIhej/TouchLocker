@@ -17,6 +17,7 @@
 		45753C9A1A26697200BFFE86 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753C991A26697200BFFE86 /* QuartzCore.framework */; };
 		45753C9C1A26697F00BFFE86 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753C9B1A26697F00BFFE86 /* AssetsLibrary.framework */; };
 		45753C9E1A26698600BFFE86 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753C9D1A26698600BFFE86 /* UIKit.framework */; };
+		45A339291ADA182F002E7AAC /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45A339281ADA182F002E7AAC /* Launch Screen.xib */; };
 		45C30F6919E095FC00721CAE /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30F6819E095FC00721CAE /* TextViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		45753C991A26697200BFFE86 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		45753C9B1A26697F00BFFE86 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		45753C9D1A26698600BFFE86 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		45A339281ADA182F002E7AAC /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		45C30F6819E095FC00721CAE /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 		4550066C1990192500FB22BB /* TouchLocker */ = {
 			isa = PBXGroup;
 			children = (
+				45A339281ADA182F002E7AAC /* Launch Screen.xib */,
 				4550066F1990192500FB22BB /* AppDelegate.swift */,
 				455006741990192500FB22BB /* ViewController.swift */,
 				4572A1E51990833100713281 /* ImageViewController.swift */,
@@ -232,6 +235,7 @@
 			files = (
 				455006781990192500FB22BB /* Main.storyboard in Resources */,
 				4550067A1990192500FB22BB /* Images.xcassets in Resources */,
+				45A339291ADA182F002E7AAC /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +379,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Touch & Lock/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = TouchLocker;
 			};
@@ -387,6 +392,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Touch & Lock/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = TouchLocker;
 			};

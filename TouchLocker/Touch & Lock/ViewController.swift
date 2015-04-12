@@ -30,17 +30,17 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     //menu for adding item to TouchLocker
     @IBAction func addToTouchLocker(sender : UIBarButtonItem) {
-        var adding = UIAlertController(title: "Add to TouchLocker", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        var addText = UIAlertAction(title: "Text Snippet", style: UIAlertActionStyle.Default) { (action) -> Void in
+        let adding = UIAlertController(title: "Add to TouchLocker", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let addText = UIAlertAction(title: "Text Snippet", style: UIAlertActionStyle.Default) { (action) -> Void in
             self.addText()
         }
-        var addPhotoFromCamera = UIAlertAction(title: "Photo from Camera", style: UIAlertActionStyle.Default) { (action) -> Void in
+        let addPhotoFromCamera = UIAlertAction(title: "Photo from Camera", style: UIAlertActionStyle.Default) { (action) -> Void in
             self.addPhotoFromCamera()
         }
-        var addPhotoFromAlbum = UIAlertAction(title: "Photo from Album", style: UIAlertActionStyle.Default) { (action) -> Void in
+        let addPhotoFromAlbum = UIAlertAction(title: "Photo from Album", style: UIAlertActionStyle.Default) { (action) -> Void in
             self.addPhotoFromAlbum()
         }
-        var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
         
         adding.addAction(addText)
         adding.addAction(addPhotoFromCamera)
@@ -52,18 +52,18 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     //add text snippet to TouchLocker
     func addText() {
         //text snippet
-        var addingText = UIAlertController(title: "Text Snippet", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let addingText = UIAlertController(title: "Text Snippet", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         addingText.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.spellCheckingType = UITextSpellCheckingType.Yes
             textField.autocapitalizationType = UITextAutocapitalizationType.Sentences
             textField.autocorrectionType = UITextAutocorrectionType.Yes
         }
         
-        var saveText = UIAlertAction(title: "Save", style: UIAlertActionStyle.Default) { (action) -> Void in
-            var note = addingText.textFields?.first! as UITextField
+        let saveText = UIAlertAction(title: "Save", style: UIAlertActionStyle.Default) { (action) -> Void in
+            var note = addingText.textFields?.first! as! UITextField
             self.lockText(note.text)
         }
-        var cancel   = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        let cancel   = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
 
         addingText.addAction(saveText)
         addingText.addAction(cancel)
@@ -91,8 +91,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     //save text and reload
     func lockText(text : String) {
-        var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
-        var txtPath  = rootDir.stringByAppendingString("/text\(NSDate.timeIntervalSinceReferenceDate()).txt")
+        let rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! NSString
+        let txtPath  = rootDir.stringByAppendingString("/text\(NSDate.timeIntervalSinceReferenceDate()).txt")
         
         text.writeToFile(txtPath,
                         atomically: false,
@@ -104,10 +104,10 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     //save camera image and reload
     func lockImage(image : UIImage) {
-        var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
-        var imgPath  = rootDir.stringByAppendingString("/photo\(NSDate.timeIntervalSinceReferenceDate()).jpg")
+        let rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! NSString
+        let imgPath  = rootDir.stringByAppendingString("/photo\(NSDate.timeIntervalSinceReferenceDate()).jpg")
         
-        var data     = UIImageJPEGRepresentation(image, 1)
+        let data     = UIImageJPEGRepresentation(image, 1)
         NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
         
         self.addedNew("image", atPath: imgPath)
@@ -117,25 +117,25 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     func lockImageAtURL(imagePath : NSURL) {
         var assetLibrary = ALAssetsLibrary()
         assetLibrary.assetForURL(imagePath, resultBlock: { (asset) in
-            var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
-            var imgPath  = rootDir.stringByAppendingString("/photo\(NSDate.timeIntervalSinceReferenceDate()).jpg")
+            let rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! NSString
+            let imgPath  = rootDir.stringByAppendingString("/photo\(NSDate.timeIntervalSinceReferenceDate()).jpg")
             
-            var rep    = asset.defaultRepresentation()
-            var buff   = UnsafeMutablePointer<UInt8>.alloc(Int(rep.size()))
-            var buffed = rep.getBytes(buff, fromOffset: 0, length: Int(rep.size()), error: nil)
+            let rep    = asset.defaultRepresentation()
+            let buff   = UnsafeMutablePointer<UInt8>.alloc(Int(rep.size()))
+            let buffed = rep.getBytes(buff, fromOffset: 0, length: Int(rep.size()), error: nil)
             
-            var data   = NSData(bytesNoCopy: buff, length: buffed, freeWhenDone: true)
+            let data   = NSData(bytesNoCopy: buff, length: buffed, freeWhenDone: true)
             NSFileManager.defaultManager().createFileAtPath(imgPath, contents: data, attributes: nil)
             
             //delete old image & complete
-            var asset = PHAsset.fetchAssetsWithALAssetURLs([imagePath], options: nil)
+            let asset = PHAsset.fetchAssetsWithALAssetURLs([imagePath], options: nil)
             PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
                 PHAssetChangeRequest.deleteAssets(asset)
             }, completionHandler: { (success, error) -> Void in
-                if success {
+                if success || error.code == -1 {
                     self.addedNew("existing image", atPath: imgPath)
                 } else {
-                    NSLog("error: \(error.localizedDescription)")
+                    NSLog("error: \(error.code)")
                 }
             })
             
@@ -146,23 +146,25 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     func addedNew(type: String, atPath path: String) {
-        //explicitly exclude item from iCloud backup
-        NSURL(fileURLWithPath: path).setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
-        //reload table
-        self.previewTable.reloadData()
-        
-        //help text
-        if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
-            self.reminderHowToDeleteFromTouchLocker()
+        dispatch_async(dispatch_get_main_queue()) {
+            //explicitly exclude item from iCloud backup
+            NSURL(fileURLWithPath: path)!.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
+            //reload table
+            self.previewTable.reloadData()
+            
+            //help text
+            if !NSUserDefaults.standardUserDefaults().boolForKey("HasntDeleted") {
+                self.reminderHowToDeleteFromTouchLocker()
+            }
         }
     }
     
     func reminderHowToDeleteFromTouchLocker() {
-        var alert = UIAlertController(title: "Instructions",
+        let alert = UIAlertController(title: "Instructions",
             message: "To remove something from your locker, swipe the item to the left and press delete.",
             preferredStyle: UIAlertControllerStyle.Alert)
         
-        var accept = UIAlertAction(title: "Continue", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+        let accept = UIAlertAction(title: "Continue", style: UIAlertActionStyle.Cancel) { (action) -> Void in
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasntDeleted")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
@@ -172,14 +174,14 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     //camera or album image picker
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
-        var mediaType = info[UIImagePickerControllerMediaType] as NSString
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         if picker.sourceType == UIImagePickerControllerSourceType.Camera {
-            var image = info[UIImagePickerControllerOriginalImage] as UIImage
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
             lockImage(image)
         }
         else if picker.sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
-            var imagePath = info[UIImagePickerControllerReferenceURL] as NSURL
+            let imagePath = info[UIImagePickerControllerReferenceURL] as! NSURL
             lockImageAtURL(imagePath)
         }
         picker.dismissViewControllerAnimated(true, completion: nil)
@@ -188,18 +190,18 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.paths.removeAll(keepCapacity: false)
         self.files.removeAll(keepCapacity: false)
-        var rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-        var docsDir  = rootDir[0] as NSString
-        var fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil) as [String]
+        let rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let docsDir  = rootDir[0] as! String
+        let fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil) as! [String]
         
         //filter by files
         for filename in fileList {
-            var path = "\(docsDir)/\(filename)"
+            let path = "\(docsDir)/\(filename)"
             self.paths.append(path)
             if filename.hasSuffix(".jpg") {
-                self.files.append(UIImage(contentsOfFile: path))
+                self.files.append(UIImage(contentsOfFile: path)!)
             } else if filename.hasSuffix(".txt") {
-                self.files.append(NSString(contentsOfFile: path, encoding: NSASCIIStringEncoding, error: nil))
+                self.files.append(NSString(contentsOfFile: path, encoding: NSASCIIStringEncoding, error: nil)!)
             }
         }
 
@@ -208,9 +210,9 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let img = self.files[indexPath.row] as? UIImage { //image settings
-            let imageTableIdentifier: NSString = "ImageTableCell"
+            let imageTableIdentifier = "ImageTableCell"
             
-            var cell = tableView.dequeueReusableCellWithIdentifier(imageTableIdentifier) as? UITableViewCell
+            var cell = tableView.dequeueReusableCellWithIdentifier(imageTableIdentifier as String) as? UITableViewCell
             
             if cell == nil {
                 cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: imageTableIdentifier)
@@ -227,9 +229,9 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             
             return cell!
         } else { //text settings
-            let textTableIdentifier: NSString  = "TextTableCell"
+            let textTableIdentifier = "TextTableCell"
             
-            var cell = tableView.dequeueReusableCellWithIdentifier(textTableIdentifier) as? UITableViewCell
+            var cell = tableView.dequeueReusableCellWithIdentifier(textTableIdentifier as String) as? UITableViewCell
             
             if cell == nil {
                 cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: textTableIdentifier)
@@ -244,7 +246,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
                 preview = txt!.substringToIndex(20)
             }
             else {
-                preview = txt!
+                preview = txt! as String
             }
 
             cell!.textLabel!.text = preview
@@ -275,37 +277,36 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        var cell = sender as UITableViewCell
+        var cell = sender as! UITableViewCell
         
         if self.paths[cell.tag].hasSuffix(".jpg") {
-            var imageViewer = segue.destinationViewController as ImageViewController
-            imageViewer.setMainImage(self.paths[cell.tag])
+            var imageViewer = segue.destinationViewController as! ImageViewController
+            imageViewer.addMainImage(self.paths[cell.tag])
         } else if self.paths[cell.tag].hasSuffix(".txt") {
-            var textViewer  = segue.destinationViewController as TextViewController
-            textViewer.setTextURL(self.paths[cell.tag], text: self.files[cell.tag] as NSString)
+            var textViewer  = segue.destinationViewController as! TextViewController
+            textViewer.addTextURL(self.paths[cell.tag])
         }
     }
     
     //UITableView delegate method, what to do after side-swiping cell
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-            //cdeleting action
-            var faveAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
-                title: "Delete",
-                handler: {
-                    void in
-                    var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
+        //cdeleting action
+        var faveAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default,
+            title: "Delete",
+            handler: {
+                void in
+                var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
 
-                    NSFileManager.defaultManager().removeItemAtPath(self.paths[cell.tag], error: nil)
-                    self.paths.removeAtIndex(cell.tag)
-                    self.files.removeAtIndex(cell.tag)
-                    
-                    self.previewTable.beginUpdates()
-                    self.previewTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
-                    self.previewTable.endUpdates()
-            })
-            faveAction.backgroundColor = UIColor(red:1, green:0, blue:0, alpha:1)
-            return [faveAction]
-
+                NSFileManager.defaultManager().removeItemAtPath(self.paths[cell.tag], error: nil)
+                self.paths.removeAtIndex(cell.tag)
+                self.files.removeAtIndex(cell.tag)
+                
+                self.previewTable.beginUpdates()
+                self.previewTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+                self.previewTable.endUpdates()
+        })
+        faveAction.backgroundColor = UIColor(red:1, green:0, blue:0, alpha:1)
+        return [faveAction]
     }
     
     //UITableView delegate method, needed because of bug in iOS 8 for now
@@ -324,7 +325,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     //UITableView delegate method, creates animation when displaying cell
     func animateIn(this : UIView) {
-        var init_angle : Double = divide(90*M_PI, right: 180)
+        let init_angle : Double = divide(90*M_PI, right: 180)
         var rotation = CATransform3DMakeRotation(CGFloat(init_angle), 0.0, 0.7, 0.4) as CATransform3D
         rotation.m34 = (-1.0/600.0)
         

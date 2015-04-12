@@ -15,12 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window    : UIWindow?
     var blockade  : UIView?
     var unlockBtn : UIButton?
-
-    func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
+    
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         // Don't backup documents directory!
-        var docsDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as NSString
-        var url      = NSURL(fileURLWithPath: docsDir)
+        var docsDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0] as! String
+        var url      = NSURL(fileURLWithPath: docsDir)!
         url.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
         
         if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunched") {
@@ -34,13 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func applicationWillResignActive(application: UIApplication!) {
+    func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         
     }
 
-    func applicationDidEnterBackground(application: UIApplication!) {
+    func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunched") {
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationWillEnterForeground(application: UIApplication!) {
+    func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         if NSUserDefaults.standardUserDefaults().boolForKey("HasLaunched") {
             // app already launched, authenticate
@@ -57,11 +57,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationDidBecomeActive(application: UIApplication!) {
+    func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication!) {
+    func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
     }
@@ -120,21 +120,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.unlock()
                     } else { //could not authenticate
                         switch error.code {
-                        case LAError.UserFallback.toRaw(): //user chose to authenticate with passcode
+                        case LAError.UserFallback.rawValue: //user chose to authenticate with passcode
                             self.authenticateWithPasscode()
-                        case LAError.UserCancel.toRaw():   //user chose to cancel authentication
+                        case LAError.UserCancel.rawValue:   //user chose to cancel authentication
                             var alertMessage = "Sorry, you must provide your fingerprint or passcode to enter TouchLocker."
                             var cancelled = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
                             var cancel = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
                             cancelled.addAction(cancel)
-                            UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(cancelled, animated: true, completion: nil)
+                            UIApplication.sharedApplication().keyWindow!.rootViewController?.presentViewController(cancelled, animated: true, completion: nil)
                             self.unlockBtn!.hidden = false
                         default: //other authentication error
                             var alertMessage = "There was an error reading your fingerprint."
                             var error = UIAlertController(title: "Locked", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
                             var okay = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
                             error.addAction(okay)
-                            UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(error, animated: true, completion: nil)
+                            UIApplication.sharedApplication().keyWindow!.rootViewController?.presentViewController(error, animated: true, completion: nil)
                             self.unlockBtn!.hidden = false
                         }
                     }
@@ -170,7 +170,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             style: UIAlertActionStyle.Default,
             handler: {
                 (action : UIAlertAction!) in
-                var passcodeField = promptToSetupPasscode.textFields?.first as UITextField
+                var passcodeField = promptToSetupPasscode.textFields?.first as! UITextField
                 self.setupPasscode(passcodeField.text)
         })
         
@@ -182,7 +182,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //set passcode if valid
     func setupPasscode(passcode : String) {
-        if countElements(passcode) >= 4 { //good password length!
+        if count(passcode) >= 4 { //good password length!
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "HasLaunched")
             NSUserDefaults.standardUserDefaults().setValue(passcode, forKey: "locker-pass")
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -209,10 +209,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
         var attempt = UIAlertAction(title: "Unlock", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            var passcodeField = passcodeAttempt.textFields?.first as UITextField
+            var passcodeField = passcodeAttempt.textFields?.first as! UITextField
             
             //if password is correct
-            if(NSUserDefaults.standardUserDefaults().valueForKey("locker-pass") as String == passcodeField.text) {
+            if(NSUserDefaults.standardUserDefaults().valueForKey("locker-pass") as! String == passcodeField.text) {
                 self.unlock()
             } else { //password incorrect, prompt to try again
                 var alertMessage = "Sorry, that passcode is incorrect. Please try again."
@@ -226,7 +226,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 tryAgain.addAction(cancel)
                 tryAgain.addAction(authenticate)
-                UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(tryAgain, animated: true, completion: nil)
+                UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(tryAgain, animated: true, completion: nil)
             }
         })
         var cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
@@ -234,7 +234,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         passcodeAttempt.addAction(attempt)
         passcodeAttempt.addAction(cancel)
-        UIApplication.sharedApplication().keyWindow.rootViewController?.presentViewController(passcodeAttempt, animated: true, completion: nil)
+        UIApplication.sharedApplication().keyWindow!.rootViewController?.presentViewController(passcodeAttempt, animated: true, completion: nil)
     }
 
 }

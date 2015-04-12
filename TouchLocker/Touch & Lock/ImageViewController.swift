@@ -55,12 +55,12 @@ class ImageViewController : UIViewController, UIScrollViewDelegate {
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
-    func setMainImage(path : String) {
+    func addMainImage(path : String) {
         self.mainImageURL = NSURL(fileURLWithPath: path)
         self.mainImage    = UIImage(contentsOfFile: path)
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView!) -> UIView! {
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return self.mainImageView
     }
 }
