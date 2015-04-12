@@ -14,7 +14,6 @@ import Photos
 class ViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var previewTable : UITableView!
     var paths = [] as [String]
-    var files = [] as [AnyObject]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,27 +188,23 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.paths.removeAll(keepCapacity: false)
-        self.files.removeAll(keepCapacity: false)
+        
         let rootDir  = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let docsDir  = rootDir[0] as! String
         let fileList = NSFileManager.defaultManager().contentsOfDirectoryAtPath(docsDir, error: nil) as! [String]
         
         //filter by files
         for filename in fileList {
-            let path = "\(docsDir)/\(filename)"
-            self.paths.append(path)
-            if filename.hasSuffix(".jpg") {
-                self.files.append(UIImage(contentsOfFile: path)!)
-            } else if filename.hasSuffix(".txt") {
-                self.files.append(NSString(contentsOfFile: path, encoding: NSASCIIStringEncoding, error: nil)!)
-            }
+            paths += ["\(docsDir)/\(filename)"]
         }
 
-        return self.files.count
+        return self.paths.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let img = self.files[indexPath.row] as? UIImage { //image settings
+        let path = self.paths[indexPath.row]
+        
+        if let img = UIImage(contentsOfFile: path) { //image settings
             let imageTableIdentifier = "ImageTableCell"
             
             var cell = tableView.dequeueReusableCellWithIdentifier(imageTableIdentifier as String) as? UITableViewCell
@@ -228,7 +223,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             cell!.layoutMargins = UIEdgeInsetsZero
             
             return cell!
-        } else { //text settings
+        }
+        if let txt = NSString(contentsOfFile: path, encoding: NSASCIIStringEncoding, error: nil) { //text settings
             let textTableIdentifier = "TextTableCell"
             
             var cell = tableView.dequeueReusableCellWithIdentifier(textTableIdentifier as String) as? UITableViewCell
@@ -238,23 +234,13 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             }
             
             cell!.tag = indexPath.row
-            
-            let txt = self.files[indexPath.row] as? NSString
-            
-            var preview : String
-            if txt!.length > 20 {
-                preview = txt!.substringToIndex(20)
-            }
-            else {
-                preview = txt! as String
-            }
-
-            cell!.textLabel!.text = preview
+            cell!.textLabel!.text = txt as String
             
             var allFiles = 0.0
             var countAllTxt = 0.0
             var thisTxt  = 0.0
-            for path in self.paths {
+            
+            for path in paths {
                 allFiles++
                 if path.hasSuffix(".txt") {
                     countAllTxt++
@@ -270,6 +256,8 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             
             return cell!
         }
+        
+        return UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Error")
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -277,14 +265,15 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        var cell = sender as! UITableViewCell
+        let cell = sender as! UITableViewCell
+        let path = paths[previewTable.indexPathForCell(cell)!.row]
         
-        if self.paths[cell.tag].hasSuffix(".jpg") {
+        if path.hasSuffix(".jpg") {
             var imageViewer = segue.destinationViewController as! ImageViewController
-            imageViewer.addMainImage(self.paths[cell.tag])
-        } else if self.paths[cell.tag].hasSuffix(".txt") {
+            imageViewer.addMainImage(path)
+        } else if path.hasSuffix(".txt") {
             var textViewer  = segue.destinationViewController as! TextViewController
-            textViewer.addTextURL(self.paths[cell.tag])
+            textViewer.addTextURL(path)
         }
     }
     
@@ -295,11 +284,9 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
             title: "Delete",
             handler: {
                 void in
-                var cell = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell!
-
-                NSFileManager.defaultManager().removeItemAtPath(self.paths[cell.tag], error: nil)
-                self.paths.removeAtIndex(cell.tag)
-                self.files.removeAtIndex(cell.tag)
+                let path = self.paths[indexPath.row]
+                NSFileManager.defaultManager().removeItemAtPath(path, error: nil)
+                self.paths.removeAtIndex(indexPath.row)
                 
                 self.previewTable.beginUpdates()
                 self.previewTable.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)

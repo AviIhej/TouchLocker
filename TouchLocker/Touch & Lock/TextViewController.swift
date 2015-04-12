@@ -86,8 +86,8 @@ class TextViewController : UIViewController, UITextViewDelegate {
     }
     
     func addTextURL(url : String) {
-        self.text = NSString(contentsOfFile: url, encoding: NSASCIIStringEncoding, error: nil) as? String
         self.textURL = url
+        self.text = NSString(contentsOfFile: textURL!, encoding: NSASCIIStringEncoding, error: nil) as? String
     }
     
     func textViewDidChange(textView: UITextView) {
